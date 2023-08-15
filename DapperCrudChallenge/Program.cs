@@ -1,3 +1,6 @@
+using System.Data;
+using System.Data.SqlClient;
+
 namespace DapperCrudChallenge
 {
     public class Program
@@ -12,6 +15,10 @@ namespace DapperCrudChallenge
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSingleton<IDbConnection,SqlConnection>(
+                con => new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")
+            ));
 
             var app = builder.Build();
 
